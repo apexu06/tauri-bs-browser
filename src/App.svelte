@@ -3,9 +3,9 @@
 	import './styles.css';
 </script>
 
-<main class="container">
+<main class="w-full flex flex-col justify-center items-center">
 	<h1>Welcome to Tauri!</h1>
-	<div class="bg-red-400">fuck no</div>
+	<div class="bg-red-400 flex">fuck no</div>
 
 	<Greet />
 </main>
