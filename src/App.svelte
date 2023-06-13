@@ -1,13 +1,23 @@
 <script lang="ts">
 	import Greet from './lib/Greet.svelte';
 	import './styles.css';
+	import Hamburger from './components/hamburger.svelte';
 </script>
 
-<main class="w-full flex flex-col justify-center items-center">
-	<h1>Welcome to Tauri!</h1>
-	<div class="bg-red-400 flex">fuck no</div>
+<main class="flex h-full w-full flex-col items-center justify-center">
+	<div class="m-8 h-fit w-fit self-start">
+		<Hamburger />
+	</div>
 
-	<Greet />
+	<div class="flex flex-col items-center">
+		<h1>BeatSaber Browser</h1>
+		<h3>Search Maps</h3>
+	</div>
+
+	<div class="flex h-12 w-2/5 shadow shadow-black">
+		<input type="text" placeholder="map title" />
+		<button>Search</button>
+	</div>
 </main>
 
 <style>
