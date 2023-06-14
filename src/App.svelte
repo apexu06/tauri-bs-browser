@@ -1,16 +1,21 @@
 <script lang="ts">
-	import './styles.css';
-	import Hamburger from './components/hamburger.svelte';
+	import Hamburger from './components/Hamburger.svelte';
+	import MapTable from './components/map-table/MapTable.svelte';
+	import type { Map } from './types/Map';
 	import { invoke } from '@tauri-apps/api/tauri';
 
 	let query: string;
 
-	let data = [];
+	let data: Map[] = [];
+	let error = '';
 	async function searchMaps() {
-		await invoke('get_maps', { query: query, page: 0 }).then((res) => {
-			data = res as [];
-			console.log(JSON.stringify(data));
-		});
+		await invoke('get_maps', { query: query, page: 0 })
+			.then((res) => {
+				data = res as Map[];
+			})
+			.catch((err) => {
+				error = 'Something went wrong: ' + err;
+			});
 	}
 </script>
 
@@ -29,13 +34,12 @@
 		<button on:click={searchMaps}>Search</button>
 	</div>
 
-	<div class="flex flex-col items-center">
-		{#each data as map}
-			<div class="flex flex-col items-center">
-				<h3>{map.name}</h3>
-				<h4>{map.description}</h4>
-			</div>
-		{/each}
+	<div class="mt-10 flex w-full flex-col items-center">
+		<h3>Results</h3>
+		<MapTable maps={data} />
+		<span class="text-center text-2xl font-extrabold text-red-700"
+			>{error}</span
+		>
 	</div>
 </main>
 
