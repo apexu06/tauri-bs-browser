@@ -1,5 +1,8 @@
 use serde::Deserialize;
+use ts_rs::TS;
 
+#[derive(TS)]
+#[ts(export)]
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct LeaderBoardInfo {
@@ -26,6 +29,8 @@ impl LeaderBoardInfo {
     }
 }
 
+#[derive(TS)]
+#[ts(export)]
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Difficulty {
@@ -34,11 +39,15 @@ pub struct Difficulty {
     pub game_mode: String,
 }
 
+#[derive(TS)]
+#[ts(export)]
 #[derive(Deserialize, Debug)]
 pub struct Leaderboard {
     pub scores: Vec<Score>,
 }
 
+#[derive(TS)]
+#[ts(export)]
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Score {
@@ -53,6 +62,8 @@ pub struct Score {
     pub full_combo: bool,
 }
 
+#[derive(TS)]
+#[ts(export)]
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Player {

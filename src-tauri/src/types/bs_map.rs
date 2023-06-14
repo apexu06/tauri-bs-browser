@@ -1,5 +1,8 @@
 use serde::{Deserialize, Serialize};
+use ts_rs::TS;
 
+#[derive(TS)]
+#[ts(export)]
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Map {
@@ -15,6 +18,9 @@ pub struct Map {
     pub automapper: bool,
 }
 
+
+#[derive(TS)]
+#[ts(export)]
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Metadata {
@@ -26,6 +32,10 @@ pub struct Metadata {
     pub duration: i32,
 }
 
+
+
+#[derive(TS)]
+#[ts(export)]
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Stats {
@@ -33,6 +43,8 @@ pub struct Stats {
     pub upvotes: i32,
 }
 
+#[derive(TS)]
+#[ts(export)]
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Version {
@@ -43,6 +55,8 @@ pub struct Version {
     pub hash: String,
 }
 
+#[derive(TS)]
+#[ts(export)]
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct MapDifficulty {
@@ -54,6 +68,9 @@ pub struct MapDifficulty {
     pub nps: f32,
 }
 
+
+#[derive(TS)]
+#[ts(export)]
 #[derive(Deserialize, Serialize, Debug)]
 pub struct Maps {
     pub docs: Vec<Map>,
