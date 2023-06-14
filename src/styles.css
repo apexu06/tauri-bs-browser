@@ -44,6 +44,7 @@ input {
 	padding: 2px;
 	padding-left: 8px;
 	width: 100%;
+	font-size: 120%;
 }
 
 input:focus {
@@ -55,7 +56,7 @@ button {
 	background: var(--primary);
 	padding: 4px;
 	font-weight: bold;
-	font-size: 110%;
+	font-size: 120%;
 	width: 30%;
 	transition: 200ms;
 }

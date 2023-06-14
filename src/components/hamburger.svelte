@@ -1,10 +1,10 @@
 <script lang="ts">
 	import '../styles.css';
+	export let transformed = false;
 
 	let l1 = 'default',
 		l2 = 'default',
 		l3 = 'default';
-	let transformed = false;
 
 	function onClick(transformed: boolean) {
 		if (!transformed) {
@@ -44,11 +44,11 @@
 
 	.line2 {
 		transition: 200ms;
-		transform: translateX(30px);
+		transform: translateX(20px);
 	}
 
 	.line3 {
 		transition: 200ms;
-		transform: translateX(-30px);
+		transform: translateX(-20px);
 	}
 </style>
