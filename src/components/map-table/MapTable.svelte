@@ -6,7 +6,7 @@
 </script>
 
 <div
-	class="table-container grid w-4/5 grid-cols-2 gap-x-4 gap-y-4 xl:grid-cols-3"
+	class="table-container grid w-5/6 grid-cols-1 gap-x-4 gap-y-4 md:grid-cols-2 xl:grid-cols-3"
 >
 	{#each maps as map}
 		<MapCard {map} />

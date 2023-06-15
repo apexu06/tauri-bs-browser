@@ -1,26 +1,16 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import Hamburger from './components/Hamburger.svelte';
 	import MapTable from './components/map-table/MapTable.svelte';
 	import type { Map } from './types/Map';
 	import { invoke } from '@tauri-apps/api/tauri';
 
-	let query: string;
+	let query = '';
 	let data: Map[] = [];
 	let error = '';
 
-	onMount(async () => {
-		await invoke('get_maps', { query: 'Camelia', page: 0 })
-			.then((res) => {
-				//data = res as Map[];
-			})
-			.catch((err) => {
-				error = 'Something went wrong: ' + err;
-			});
-	});
-
 	async function searchMaps() {
-		await invoke('get_maps', { query: query, page: 0 })
+		data = [];
+		await invoke('get_maps', { query: query, page: 0, currentMaps: data })
 			.then((res) => {
 				data = res as Map[];
 			})

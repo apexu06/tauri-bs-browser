@@ -5,6 +5,27 @@
 	import playButton from '../../icons/play-button.svg';
 
 	export let map: Map;
+	let diffs = map.versions[0].diffs;
+	let ratingBarWidth: number;
+	let likes = map.stats.upvotes;
+	let dislikes = map.stats.downvotes;
+
+	function getDiffColor(diff: string) {
+		switch (diff) {
+			case 'Easy':
+				return 'bg-green-500';
+			case 'Normal':
+				return 'bg-blue-500';
+			case 'Hard':
+				return 'bg-yellow-500';
+			case 'Expert':
+				return 'bg-red-500';
+			case 'ExpertPlus':
+				return 'bg-pink-500';
+			default:
+				return 'bg-gray-500';
+		}
+	}
 </script>
 
 <div
@@ -16,7 +37,9 @@
 	>
 		<div class="content-container grid h-full w-full grid-cols-2 py-4 pl-4">
 			<div class="col-span-2 flex flex-col">
-				<h4 class="col-span-2 overflow-hidden font-bold leading-7">
+				<h4
+					class="col-span-2 overflow-hidden whitespace-nowrap font-bold leading-7"
+				>
 					{map.metadata.songName}
 				</h4>
 				<h5 class="mb-1 italic leading-3">
@@ -28,7 +51,7 @@
 				<span class="text-xl">{map.metadata.songAuthorName}</span>
 				<div class="mb-1 h-px w-full bg-gray-50" />
 
-				<span class="flex justify-between"
+				<span class="flex justify-between whitespace-nowrap"
 					><b>Mapper:</b> {map.metadata.levelAuthorName}</span
 				>
 				<span class="flex justify-between"
@@ -44,13 +67,60 @@
 				>
 			</div>
 
-			<div class="flex h-full w-full items-center justify-center">
+			<div
+				class="flex h-full w-full flex-col items-center justify-center"
+			>
+				<div
+					class=" flex w-fit max-w-[80%] justify-between rounded bg-transparent text-[80%] font-bold backdrop-blur-md"
+				>
+					{#each diffs as diff}
+						<div
+							class="{getDiffColor(
+								diff.difficulty
+							)} m-1 h-4 w-12 items-center justify-center rounded-xl text-center"
+						>
+							{#if diff.difficulty == 'ExpertPlus'}
+								<span>E+</span>
+							{:else}
+								<span>{diff.difficulty.charAt(0)}</span>
+							{/if}
+						</div>
+					{/each}
+				</div>
+
+				<div
+					class="mt-2 flex h-6 w-4/5 overflow-hidden bg-transparent text-center font-bold backdrop-blur-xl"
+					bind:clientWidth={ratingBarWidth}
+				>
+					{#if likes == 0 && dislikes == 0}
+						<div
+							class="w-full rounded-lg bg-transparent backdrop-blur-xl"
+						>
+							No Rating yet
+						</div>
+					{:else}
+						<div
+							class="rounded-l-lg bg-green-400"
+							style="width: {(likes / (likes + dislikes)) *
+								ratingBarWidth}px;"
+						>
+							{likes}
+						</div>
+						<div
+							class="min-w-[10%] rounded-r-lg bg-red-400"
+							style="width: {(dislikes / (likes + dislikes)) *
+								ratingBarWidth}px;"
+						>
+							{dislikes}
+						</div>
+					{/if}
+				</div>
 				<button
-					class="flex h-24 w-24 items-center justify-center rounded-xl bg-transparent"
+					class="mt-4 flex h-12 w-4/5 items-center justify-center rounded-xl bg-transparent hover:bg-transparent"
 					><img
 						src={playButton}
-						width="50"
-						height="50"
+						width="30"
+						height="30"
 						alt="Play"
 					/></button
 				>

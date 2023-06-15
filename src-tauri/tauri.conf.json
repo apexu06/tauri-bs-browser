@@ -16,7 +16,12 @@
       "shell": {
         "all": false,
         "open": true
-      }
+      },
+	  "http": {
+		  "all": true,
+		  "request": true,
+		  "scope": ["https://api.beatsaver.com/**"]
+	  }
     },
     "bundle": {
       "active": true,
@@ -31,7 +36,12 @@
       ]
     },
     "security": {
-      "csp": null
+      "csp": null,
+	  "dangerousRemoteDomainIpcAccess" : [{
+		  "domain": "api.beatsaver.com",
+		  "windows": ["main"]
+		}
+	  ]
     },
     "windows": [
       {
@@ -39,7 +49,8 @@
         "resizable": true,
         "title": "tauri-bs-browser",
         "width": 800,
-        "height": 600
+        "height": 600,
+		"label": "main"
       }
     ]
   }

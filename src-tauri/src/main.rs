@@ -8,11 +8,14 @@ mod api;
 mod types;
 
 #[tauri::command]
-async fn get_maps(query: &str, page: u32) -> Result<Vec<Map>, String> {
-    let maps = fetch_maps(query, page).await;
+async fn get_maps(query: &str, page: u32, mut current_maps: Vec<Map>) -> Result<Vec<Map>, String> {
+    let new_maps = fetch_maps(query, page).await;
 
-    match maps {
-        Ok(maps) => Ok(maps),
+    match new_maps {
+        Ok(mut maps) => {
+            current_maps.append(&mut maps);
+            Ok(current_maps)
+        }
         Err(e) => Err(e.to_string()),
     }
 }
