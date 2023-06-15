@@ -1,14 +1,19 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import customSelect from 'custom-select';
 
 	export let searchType: string = 'Latest';
 
 	let searchSelect: HTMLSelectElement;
+
+	onMount(() => {
+		customSelect(searchSelect);
+	});
 </script>
 
 <div class="my-6 flex w-5/6 rounded-lg bg-neutral-900 p-2">
-	<div>
-		<label for="searchSelect">Search by: </label>
+	<div class="flex items-center">
+		<label for="searchSelect" class="mr-3">Search by: </label>
 		<select
 			name="searchSelect"
 			id="searchSelect"
@@ -22,13 +27,3 @@
 		</select>
 	</div>
 </div>
-
-<style>
-	select option {
-		background-color: #ff0000;
-	}
-
-	select {
-		color: black;
-	}
-</style>

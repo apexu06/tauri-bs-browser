@@ -154,10 +154,8 @@
 		background-position-y: 30%;
 		background-blend-mode: darken;
 		transition: 200ms;
-
 		border: 2px solid white;
 		cursor: pointer;
-		z-index: 100;
 	}
 
 	span {
