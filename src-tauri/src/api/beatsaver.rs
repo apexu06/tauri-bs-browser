@@ -14,7 +14,7 @@ pub async fn fetch_maps(query: &str, page_index: u32) -> Result<Vec<Map>, Box<dy
     Ok(resp.docs)
 }
 
-pub async fn fetch_map_details(id: &String) -> Result<Map, Box<dyn std::error::Error>> {
+pub async fn fetch_map_details(id: &String) -> Result<Map, Box<dyn Error>> {
     let resp: Map = reqwest::get(format!("https://api.beatsaver.com/maps/id/{}", id))
         .await?
         .json()

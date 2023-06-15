@@ -1,18 +1,23 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import Hamburger from './components/Hamburger.svelte';
 	import MapTable from './components/map-table/MapTable.svelte';
 	import type { Map } from './types/Map';
 	import { invoke } from '@tauri-apps/api/tauri';
 
 	let query = '';
-	let data: Map[] = [];
+	let maps: Map[] = [];
 	let error = '';
 
-	async function searchMaps() {
-		data = [];
-		await invoke('get_maps', { query: query, page: 0, currentMaps: data })
+	onMount(() => {
+		searchMaps();
+	});
+
+	function searchMaps() {
+		maps = [];
+		invoke('get_maps', { query: query, page: 0, currentMaps: maps })
 			.then((res) => {
-				data = res as Map[];
+				maps = res as Map[];
 			})
 			.catch((err) => {
 				error = 'Something went wrong: ' + err;
@@ -32,11 +37,11 @@
 
 	<div class="flex h-12 w-2/5 shadow shadow-black">
 		<input bind:value={query} type="text" placeholder="map title" />
-		<button on:click={searchMaps}>Search</button>
+		<button on:click={() => searchMaps()}>Search</button>
 	</div>
 
 	<div class="mt-10 flex w-full flex-col items-center">
-		<MapTable maps={data} />
+		<MapTable {maps} />
 		<span class="text-center text-2xl font-extrabold text-red-700"
 			>{error}</span
 		>

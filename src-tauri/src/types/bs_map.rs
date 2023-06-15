@@ -18,7 +18,6 @@ pub struct Map {
     pub automapper: bool,
 }
 
-
 #[derive(TS)]
 #[ts(export)]
 #[derive(Deserialize, Serialize, Debug, Clone)]
@@ -31,8 +30,6 @@ pub struct Metadata {
     pub bpm: f32,
     pub duration: i32,
 }
-
-
 
 #[derive(TS)]
 #[ts(export)]
@@ -67,7 +64,6 @@ pub struct MapDifficulty {
     pub njs: f32,
     pub nps: f32,
 }
-
 
 #[derive(TS)]
 #[ts(export)]

@@ -6,9 +6,14 @@
 
 	export let map: Map;
 	let diffs = map.versions[0].diffs;
+	let ratingBar: HTMLDivElement;
 	let ratingBarWidth: number;
 	let likes = map.stats.upvotes;
 	let dislikes = map.stats.downvotes;
+
+	window.addEventListener('resize', () => {
+		ratingBarWidth = ratingBar?.clientWidth;
+	});
 
 	function getDiffColor(diff: string) {
 		switch (diff) {
@@ -26,6 +31,8 @@
 				return 'bg-gray-500';
 		}
 	}
+
+	$: ratingBarWidth = ratingBar?.clientWidth;
 </script>
 
 <div
@@ -89,8 +96,8 @@
 				</div>
 
 				<div
-					class="mt-2 flex h-6 w-4/5 overflow-hidden bg-transparent text-center font-bold backdrop-blur-xl"
-					bind:clientWidth={ratingBarWidth}
+					class="mt-2 flex h-6 w-4/5 overflow-hidden rounded-lg bg-transparent text-center font-bold backdrop-blur-xl"
+					bind:this={ratingBar}
 				>
 					{#if likes == 0 && dislikes == 0}
 						<div
@@ -163,5 +170,6 @@
 
 	button:hover {
 		border: none;
+		transform: scaleY(120%);
 	}
 </style>
