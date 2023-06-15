@@ -4,6 +4,7 @@
 	import MapTable from './components/map-table/MapTable.svelte';
 	import type { Map } from './types/Map';
 	import { invoke } from '@tauri-apps/api/tauri';
+	import FilterBar from './components/FilterBar.svelte';
 
 	let query = '';
 	let maps: Map[] = [];
@@ -13,9 +14,16 @@
 		searchMaps();
 	});
 
+	let sortOrder = 'Latest';
+
 	function searchMaps() {
 		maps = [];
-		invoke('get_maps', { query: query, page: 0, currentMaps: maps })
+		invoke('get_maps', {
+			query: query,
+			page: 0,
+			sortMode: sortOrder,
+			currentMaps: maps,
+		})
 			.then((res) => {
 				maps = res as Map[];
 			})
@@ -40,7 +48,8 @@
 		<button on:click={() => searchMaps()}>Search</button>
 	</div>
 
-	<div class="mt-10 flex w-full flex-col items-center">
+	<div class="flex w-full flex-col items-center">
+		<FilterBar bind:searchType={sortOrder} />
 		<MapTable {maps} />
 		<span class="text-center text-2xl font-extrabold text-red-700"
 			>{error}</span
