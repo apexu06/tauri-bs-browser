@@ -89,13 +89,12 @@ button:hover {
 	background-color: var(--primary);
 	display: block;
 	cursor: pointer;
-	width: 100%;
 	border-radius: 8px;
 	padding: 4px;
 	text-align: center;
 
 	font-weight: bold;
-	min-width: 80px;
+	width: 10rem;
 }
 
 .custom-select-container select {
@@ -106,7 +105,7 @@ button:hover {
 }
 .custom-select-panel {
 	max-height: 0;
-	transition: max-height 0.5s ease-out, overflow-y 0.1s 0.5s;
+	transition: max-height 0.2s ease-out, overflow-y 0.1s 0.2s;
 	overflow: hidden;
 	background-color: var(--bgColor);
 	position: absolute;
@@ -117,14 +116,13 @@ button:hover {
 	margin-top: 4px;
 }
 .custom-select-container.is-open .custom-select-panel {
-	max-height: fit-content;
+	max-height: 10em;
 	overflow-y: auto;
 }
 .custom-select-option {
 	width: 100%;
 	text-align: center;
 	cursor: pointer;
-
 	font-weight: bold;
 	border-top: 1px solid #333;
 }

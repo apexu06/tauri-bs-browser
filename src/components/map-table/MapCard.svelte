@@ -3,6 +3,7 @@
 	import '../../styles.css';
 	import pauseButton from '../../icons/pause-button.svg';
 	import playButton from '../../icons/play-button.svg';
+	import { onMount } from 'svelte';
 
 	export let map: Map;
 	let diffs = map.versions[0].diffs;
@@ -10,6 +11,10 @@
 	let ratingBarWidth: number;
 	let likes = map.stats.upvotes;
 	let dislikes = map.stats.downvotes;
+
+	onMount(() => {
+		getMapState();
+	});
 
 	window.addEventListener('resize', () => {
 		ratingBarWidth = ratingBar?.clientWidth;
@@ -32,12 +37,41 @@
 		}
 	}
 
+	let color1 = '';
+	let color2 = '';
+
+	function getMapState() {
+		if (map.ranked) {
+			color1 = '#16f768';
+		} else if (map.qualified) {
+			color1 = '#ab04f2';
+		}
+		color2 = color1;
+
+		if (map.curatedAt !== null) {
+			color2 = '#f49004';
+		} else if (
+			map.uploader.verifiedMapper !== null &&
+			map.uploader.verifiedMapper
+		) {
+			color2 = '#1b68f7';
+		}
+
+		if (color2 !== '' && color1 === '') {
+			color1 = color2;
+		}
+
+		color1.replace(/(['"])/g, '');
+		color2.replace(/(['"])/g, '');
+	}
+
 	$: ratingBarWidth = ratingBar?.clientWidth;
 </script>
 
 <div
 	class="image-container flex h-56 w-full flex-col rounded-xl bg-neutral-700 transition"
-	style="--image: url({map.versions[0].coverURL})"
+	style="--image: url({map.versions[0]
+		.coverURL}); --color1: {color1}; --color2: {color2}"
 >
 	<div
 		class="flex h-full w-full items-center justify-center rounded-xl backdrop-blur-[3px]"
@@ -145,6 +179,7 @@
 		background-blend-mode: darken;
 		border: 2px solid var(--bgColor);
 		transition: 200ms;
+		position: relative;
 	}
 
 	.image-container:hover {
@@ -156,6 +191,23 @@
 		transition: 200ms;
 		border: 2px solid white;
 		cursor: pointer;
+	}
+
+	.image-container::before {
+		content: '';
+		position: absolute;
+		z-index: -1;
+		inset: -1px;
+		background: linear-gradient(
+			-90deg,
+			var(--color1) 0%,
+			var(--color2) 80%
+		);
+		transform: translate(7px, 7px);
+		filter: blur(5px);
+		opacity: 1;
+		transition: opacity 0.3s;
+		border-radius: inherit;
 	}
 
 	span {

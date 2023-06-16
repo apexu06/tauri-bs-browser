@@ -4,7 +4,7 @@
 	import MapTable from './components/map-table/MapTable.svelte';
 	import type { Map } from './types/Map';
 	import { invoke } from '@tauri-apps/api/tauri';
-	import FilterBar from './components/FilterBar.svelte';
+	import FilterBar from './components/filter-bar/FilterBar.svelte';
 
 	let query = '';
 	let maps: Map[] = [];
@@ -15,6 +15,9 @@
 	});
 
 	let sortOrder = 'Latest';
+	let onlyRanked = false;
+	let onlyVerified = false;
+	let onlyCurated = false;
 
 	function searchMaps() {
 		maps = [];
@@ -49,7 +52,12 @@
 	</div>
 
 	<div class="flex w-full flex-col items-center">
-		<FilterBar bind:searchType={sortOrder} />
+		<FilterBar
+			bind:searchType={sortOrder}
+			bind:onlyRanked
+			bind:onlyCurated
+			bind:onlyVerified
+		/>
 		<MapTable {maps} />
 		<span class="text-center text-2xl font-extrabold text-red-700"
 			>{error}</span

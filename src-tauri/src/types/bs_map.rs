@@ -9,6 +9,7 @@ pub struct Map {
     pub id: String,
     pub name: String,
     pub last_published_at: String,
+    pub curated_at: Option<String>,
     pub metadata: Metadata,
     pub stats: Stats,
     pub description: String,
@@ -16,6 +17,15 @@ pub struct Map {
     pub qualified: bool,
     pub versions: Vec<Version>,
     pub automapper: bool,
+    pub uploader: UserDetail,
+}
+
+#[derive(TS)]
+#[ts(export)]
+#[derive(Deserialize, Serialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct UserDetail {
+    pub verified_mapper: Option<bool>,
 }
 
 #[derive(TS)]
