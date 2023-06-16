@@ -12,12 +12,20 @@ async fn get_maps(
     query: &str,
     page: u32,
     sort_mode: &str,
+    ranked: bool,
+    qualified: bool,
+    curated: bool,
     mut current_maps: Vec<Map>,
 ) -> Result<Vec<Map>, String> {
-    let new_maps = fetch_maps(query, page, sort_mode).await;
+    let new_maps = fetch_maps(query, page, sort_mode, ranked, qualified, curated).await;
 
     match new_maps {
         Ok(mut maps) => {
+            if qualified {
+                for map in maps.iter_mut() {
+                    map.qualified = true;
+                }
+            }
             current_maps.append(&mut maps);
             Ok(current_maps)
         }

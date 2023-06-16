@@ -5,7 +5,7 @@
 
 	export let searchType = 'Latest';
 	export let onlyRanked = false;
-	export let onlyVerified = false;
+	export let onlyQualified = false;
 	export let onlyCurated = false;
 
 	let sortSelect: HTMLSelectElement;
@@ -42,8 +42,8 @@
 			<ToggleSwitch bind:checked={onlyRanked} />
 		</div>
 		<div class="mr-2 border-r border-r-neutral-600 pr-2">
-			<span class="mr-2">Verified: </span>
-			<ToggleSwitch bind:checked={onlyVerified} />
+			<span class="mr-2">Qualified: </span>
+			<ToggleSwitch bind:checked={onlyQualified} />
 		</div>
 		<div class="mr-2">
 			<span class="mr-2">Curated: </span>

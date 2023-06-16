@@ -5,11 +5,14 @@ use crate::types::bs_map::{Map, Maps};
 pub async fn fetch_maps(
     query: &str,
     page_index: u32,
-    sortOrder: &str,
+    sort_order: &str,
+    ranked: bool,
+    qualified: bool,
+    curated: bool,
 ) -> Result<Vec<Map>, Box<dyn Error>> {
     let resp: Maps = reqwest::get(format!(
-        "https://api.beatsaver.com/search/text/{}?q={}&sortOrder={}",
-        page_index, query, sortOrder
+        "https://api.beatsaver.com/search/text/{}?q={}&sortOrder={}&ranked={}&qualified={}&curated={}",
+        page_index, query, sort_order, ranked, qualified, curated
     ))
     .await?
     .json()

@@ -16,7 +16,7 @@
 
 	let sortOrder = 'Latest';
 	let onlyRanked = false;
-	let onlyVerified = false;
+	let onlyQualified = false;
 	let onlyCurated = false;
 
 	function searchMaps() {
@@ -26,6 +26,9 @@
 			page: 0,
 			sortMode: sortOrder,
 			currentMaps: maps,
+			ranked: onlyRanked,
+			qualified: onlyQualified,
+			curated: onlyCurated,
 		})
 			.then((res) => {
 				maps = res as Map[];
@@ -56,7 +59,7 @@
 			bind:searchType={sortOrder}
 			bind:onlyRanked
 			bind:onlyCurated
-			bind:onlyVerified
+			bind:onlyQualified
 		/>
 		<MapTable {maps} />
 		<span class="text-center text-2xl font-extrabold text-red-700"

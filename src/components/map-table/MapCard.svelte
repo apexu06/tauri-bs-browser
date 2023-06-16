@@ -99,7 +99,7 @@
 					><b>Published:</b> {map.lastPublishedAt.split('T')[0]}</span
 				>
 				<span class="flex justify-between"
-					><b>BPM:</b> {map.metadata.bpm}</span
+					><b>BPM:</b> {Math.round(map.metadata.bpm)}</span
 				>
 				<span class="flex justify-between"
 					><b>Duration:</b>
