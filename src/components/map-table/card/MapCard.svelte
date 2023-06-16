@@ -1,23 +1,31 @@
 <script lang="ts">
-	import type { Map } from 'src/types/Map';
-	import '../../styles.css';
-	import pauseButton from '../../icons/pause-button.svg';
-	import playButton from '../../icons/play-button.svg';
+	import type { MapDetail } from 'src/types/MapDetail';
+	import pauseButton from '../../../icons/pause-button.svg';
+	import playButton from '../../../icons/play-button.svg';
 	import { onMount } from 'svelte';
+	import MapDataTable from './MapDataTable.svelte';
 
-	export let map: Map;
-	let diffs = map.versions[0].diffs;
 	let ratingBar: HTMLDivElement;
 	let ratingBarWidth: number;
+
+	export let map: MapDetail;
+	let diffs = map.versions[0].diffs;
 	let likes = map.stats.upvotes;
 	let dislikes = map.stats.downvotes;
 
+	let songTitleSpan: HTMLSpanElement;
+	let songTitleContainer: HTMLDivElement;
+	let songTitleSpanWidth: number;
+	let songTitleContainerWidth: number;
+
 	onMount(() => {
-		getMapState();
+		getMapColors();
 	});
 
 	window.addEventListener('resize', () => {
 		ratingBarWidth = ratingBar?.clientWidth;
+		songTitleSpanWidth = songTitleSpan?.clientWidth;
+		songTitleContainerWidth = songTitleContainer?.clientWidth;
 	});
 
 	function getDiffColor(diff: string) {
@@ -40,7 +48,7 @@
 	let color1 = '';
 	let color2 = '';
 
-	function getMapState() {
+	function getMapColors() {
 		if (map.ranked) {
 			color1 = '#16f768';
 		}
@@ -64,6 +72,10 @@
 	}
 
 	$: ratingBarWidth = ratingBar?.clientWidth;
+	$: songTitleSpanWidth = songTitleSpan?.clientWidth;
+	$: songTitleContainerWidth = songTitleContainer?.clientWidth;
+
+	$: console.log(songTitleContainerWidth + ' ' + songTitleSpanWidth);
 </script>
 
 <div
@@ -74,40 +86,34 @@
 	<div
 		class="flex h-full w-full items-center justify-center rounded-xl backdrop-blur-[3px]"
 	>
-		<div class="content-container grid h-full w-full grid-cols-2 py-4 pl-4">
+		<div class="content-container grid h-full w-full grid-cols-2 p-4">
 			<div class="col-span-2 flex flex-col">
-				<h4
-					class="col-span-2 overflow-hidden whitespace-nowrap font-bold leading-7"
+				<div
+					class="relative w-full overflow-hidden"
+					bind:this={songTitleContainer}
 				>
-					{map.metadata.songName}
-				</h4>
-				<h5 class="mb-1 italic leading-3">
+					<h4 class="col-span-2 font-bold leading-7">
+						<span
+							class="inline-block translate-x-0 whitespace-nowrap transition duration-1000 {songTitleSpanWidth >
+							songTitleContainerWidth
+								? 'scrollText'
+								: ''}"
+							style="--headingWidth: {songTitleSpanWidth}px; --containerWidth: {songTitleContainerWidth}px;"
+							bind:this={songTitleSpan}
+						>
+							{map.name}</span
+						>
+					</h4>
+				</div>
+				<h5 class="mb-1 italic leading-4">
 					{map.metadata.songSubName}
 				</h5>
 			</div>
 
-			<div class="flex flex-col">
-				<span class="text-xl">{map.metadata.songAuthorName}</span>
-				<div class="mb-1 h-px w-full bg-gray-50" />
-
-				<span class="flex justify-between whitespace-nowrap"
-					><b>Mapper:</b> {map.metadata.levelAuthorName}</span
-				>
-				<span class="flex justify-between"
-					><b>Published:</b> {map.lastPublishedAt.split('T')[0]}</span
-				>
-				<span class="flex justify-between"
-					><b>BPM:</b> {Math.round(map.metadata.bpm)}</span
-				>
-				<span class="flex justify-between"
-					><b>Duration:</b>
-					{Math.floor(map.metadata.duration / 60)}:{map.metadata
-						.duration % 60}</span
-				>
-			</div>
+			<MapDataTable {map} />
 
 			<div
-				class="flex h-full w-full flex-col items-center justify-center"
+				class="ml-2 flex h-full w-full flex-col items-center justify-center"
 			>
 				<div
 					class=" flex w-fit max-w-[80%] justify-between rounded-lg bg-transparent text-[80%] font-bold backdrop-blur-md"
@@ -208,10 +214,6 @@
 		border-radius: inherit;
 	}
 
-	span {
-		word-wrap: break-word;
-	}
-
 	button {
 		backdrop-filter: blur(15px);
 	}
@@ -219,5 +221,17 @@
 	button:hover {
 		border: none;
 		transform: scaleY(120%);
+	}
+
+	.scrollText {
+		border-radius: 8px;
+		padding-left: 2px;
+		padding-right: 2px;
+	}
+	.scrollText:hover {
+		transform: translateX(
+			calc((var(--containerWidth) - var(--headingWidth)) - 10px)
+		);
+		background: #444444;
 	}
 </style>

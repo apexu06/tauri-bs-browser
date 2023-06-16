@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { Map } from 'src/types/Map';
-	import MapCard from './MapCard.svelte';
+	import type { MapDetail } from 'src/types/MapDetail';
+	import MapCard from './card/MapCard.svelte';
 
-	export let maps: Map[] = [];
+	export let maps: MapDetail[] = [];
 </script>
 
 <div
