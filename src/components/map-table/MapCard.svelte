@@ -43,8 +43,6 @@
 	function getMapState() {
 		if (map.ranked) {
 			color1 = '#16f768';
-		} else if (map.qualified) {
-			color1 = '#ab04f2';
 		}
 		color2 = color1;
 
@@ -54,7 +52,7 @@
 			map.uploader.verifiedMapper !== null &&
 			map.uploader.verifiedMapper
 		) {
-			color2 = '#1b68f7';
+			color2 = '#ab04f2';
 		}
 
 		if (color2 !== '' && color1 === '') {
@@ -112,7 +110,7 @@
 				class="flex h-full w-full flex-col items-center justify-center"
 			>
 				<div
-					class=" flex w-fit max-w-[80%] justify-between rounded bg-transparent text-[80%] font-bold backdrop-blur-md"
+					class=" flex w-fit max-w-[80%] justify-between rounded-lg bg-transparent text-[80%] font-bold backdrop-blur-md"
 				>
 					{#each diffs as diff}
 						<div

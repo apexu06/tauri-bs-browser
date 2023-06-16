@@ -5,7 +5,7 @@ use ts_rs::TS;
 #[ts(export)]
 #[derive(Deserialize, Serialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
-pub struct Map {
+pub struct MapDetail {
     pub id: String,
     pub name: String,
     pub last_published_at: String,
@@ -79,5 +79,5 @@ pub struct MapDifficulty {
 #[ts(export)]
 #[derive(Deserialize, Serialize, Debug)]
 pub struct Maps {
-    pub docs: Vec<Map>,
+    pub docs: Vec<MapDetail>,
 }

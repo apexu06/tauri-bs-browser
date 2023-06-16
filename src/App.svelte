@@ -16,19 +16,31 @@
 
 	let sortOrder = 'Latest';
 	let onlyRanked = false;
-	let onlyQualified = false;
+	let onlyVerified = false;
 	let onlyCurated = false;
 
 	function searchMaps() {
 		maps = [];
+		let filters = [
+			{
+				name: 'ranked',
+				active: onlyRanked,
+			},
+			{
+				name: 'verified',
+				active: onlyVerified,
+			},
+			{
+				name: 'curated',
+				active: onlyCurated,
+			},
+		];
 		invoke('get_maps', {
 			query: query,
 			page: 0,
 			sortMode: sortOrder,
 			currentMaps: maps,
-			ranked: onlyRanked,
-			qualified: onlyQualified,
-			curated: onlyCurated,
+			filters: filters,
 		})
 			.then((res) => {
 				maps = res as Map[];
@@ -59,7 +71,7 @@
 			bind:searchType={sortOrder}
 			bind:onlyRanked
 			bind:onlyCurated
-			bind:onlyQualified
+			bind:onlyVerified
 		/>
 		<MapTable {maps} />
 		<span class="text-center text-2xl font-extrabold text-red-700"
