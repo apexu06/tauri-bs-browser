@@ -18,6 +18,7 @@
 	let onlyRanked = false;
 	let onlyVerified = false;
 	let onlyCurated = false;
+	let bpmValues: [number, number];
 
 	function searchMaps() {
 		maps = [];
@@ -39,8 +40,10 @@
 			query: query,
 			page: 0,
 			sortMode: sortOrder,
-			currentMaps: maps,
 			filters: filters,
+			minBpm: bpmValues[0],
+			maxBpm: bpmValues[1],
+			currentMaps: maps,
 		})
 			.then((res) => {
 				maps = res as MapDetail[];
@@ -62,8 +65,16 @@
 	</div>
 
 	<div class="flex h-12 w-2/5 shadow shadow-black">
-		<input bind:value={query} type="text" placeholder="map title" />
-		<button on:click={() => searchMaps()}>Search</button>
+		<input
+			bind:value={query}
+			type="text"
+			placeholder="map title"
+			class="rounded-l-xl"
+		/>
+		<button
+			class="rounded-r-xl hover:rounded-xl"
+			on:click={() => searchMaps()}>Search</button
+		>
 	</div>
 
 	<div class="flex w-full flex-col items-center">
@@ -72,6 +83,7 @@
 			bind:onlyRanked
 			bind:onlyCurated
 			bind:onlyVerified
+			bind:bpmValues
 		/>
 		<MapTable {maps} />
 		<span class="text-center text-2xl font-extrabold text-red-700"
@@ -79,6 +91,3 @@
 		>
 	</div>
 </main>
-
-<style>
-</style>

@@ -15,6 +15,9 @@
 	--secondary: #009ffd;
 	--tertiary: #2a2a72;
 	--text: #eaf6ff;
+	--ranked: #16f768;
+	--verified: #ab04f2;
+	--curated: #f49004;
 }
 
 body {
@@ -22,7 +25,11 @@ body {
 }
 
 h1 {
-	color: var(--primary);
+	color: transparent;
+	background: linear-gradient(90deg, var(--primary), var(--secodary));
+	background-clip: text;
+	-webkit-background-clip: text;
+	display: inline-block;
 	font-size: 400%;
 	font-weight: 600;
 }

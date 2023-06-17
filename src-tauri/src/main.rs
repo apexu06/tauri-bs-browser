@@ -13,9 +13,11 @@ async fn get_maps(
     page: u32,
     sort_mode: &str,
     filters: Vec<Filter>,
+    min_bpm: u32,
+    max_bpm: u32,
     mut current_maps: Vec<MapDetail>,
 ) -> Result<Vec<MapDetail>, String> {
-    let new_maps = fetch_maps(query, page, sort_mode, filters).await;
+    let new_maps = fetch_maps(query, page, sort_mode, min_bpm, max_bpm, filters).await;
 
     match new_maps {
         Ok(mut maps) => {

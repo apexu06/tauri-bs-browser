@@ -14,9 +14,7 @@
 	let likes = map.stats.upvotes;
 	let dislikes = map.stats.downvotes;
 
-	let songTitleSpan: HTMLSpanElement;
 	let songTitleContainer: HTMLDivElement;
-	let songTitleSpanWidth: number;
 	let songTitleContainerWidth: number;
 
 	onMount(() => {
@@ -25,7 +23,6 @@
 
 	window.addEventListener('resize', () => {
 		ratingBarWidth = ratingBar?.clientWidth;
-		songTitleSpanWidth = songTitleSpan?.clientWidth;
 		songTitleContainerWidth = songTitleContainer?.clientWidth;
 	});
 
@@ -51,17 +48,17 @@
 
 	function getMapColors() {
 		if (map.ranked) {
-			color1 = '#16f768';
+			color1 = 'var(--ranked)';
 		}
 		color2 = color1;
 
 		if (map.curatedAt !== null) {
-			color2 = '#f49004';
+			color2 = 'var(--curated)';
 		} else if (
 			map.uploader.verifiedMapper !== null &&
 			map.uploader.verifiedMapper
 		) {
-			color2 = '#ab04f2';
+			color2 = 'var(--verified)';
 		}
 
 		if (color2 !== '' && color1 === '') {
@@ -73,7 +70,6 @@
 	}
 
 	$: ratingBarWidth = ratingBar?.clientWidth;
-	$: songTitleSpanWidth = songTitleSpan?.clientWidth;
 	$: songTitleContainerWidth = songTitleContainer?.clientWidth;
 </script>
 

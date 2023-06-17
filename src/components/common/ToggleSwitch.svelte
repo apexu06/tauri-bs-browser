@@ -1,10 +1,11 @@
 <script lang="ts">
 	export let checked = false;
+	export let color: string;
 </script>
 
 <label class="switch">
 	<input bind:checked type="checkbox" />
-	<span class="slider round" />
+	<span class="slider round" style="--color: {color}" />
 </label>
 
 <style>
@@ -41,16 +42,16 @@
 		left: 4px;
 		bottom: 4px;
 		background-color: white;
-		-webkit-transition: 0.4s;
-		transition: 0.4s;
+		-webkit-transition: 0.2s;
+		transition: 0.2s;
 	}
 
 	input:checked + .slider {
-		background-color: var(--tertiary);
+		background-color: var(--color);
 	}
 
 	input:focus + .slider {
-		box-shadow: 0 0 1px var(--tertiary);
+		box-shadow: 0 0 1px var(--color);
 	}
 
 	input:checked + .slider:before {

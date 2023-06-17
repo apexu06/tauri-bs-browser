@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let containerWidth: number;
-	export let style: string;
+	export let style = '';
 
 	let textSpan: HTMLSpanElement;
 	let textSpanWidth: number;
