@@ -4,6 +4,7 @@
 	import playButton from '../../../icons/play-button.svg';
 	import { onMount } from 'svelte';
 	import MapDataTable from './MapDataTable.svelte';
+	import ScrollText from 'src/components/common/ScrollText.svelte';
 
 	let ratingBar: HTMLDivElement;
 	let ratingBarWidth: number;
@@ -74,8 +75,6 @@
 	$: ratingBarWidth = ratingBar?.clientWidth;
 	$: songTitleSpanWidth = songTitleSpan?.clientWidth;
 	$: songTitleContainerWidth = songTitleContainer?.clientWidth;
-
-	$: console.log(songTitleContainerWidth + ' ' + songTitleSpanWidth);
 </script>
 
 <div
@@ -93,21 +92,17 @@
 					bind:this={songTitleContainer}
 				>
 					<h4 class="col-span-2 font-bold leading-7">
-						<span
-							class="inline-block translate-x-0 whitespace-nowrap transition duration-1000 {songTitleSpanWidth >
-							songTitleContainerWidth
-								? 'scrollText'
-								: ''}"
-							style="--headingWidth: {songTitleSpanWidth}px; --containerWidth: {songTitleContainerWidth}px;"
-							bind:this={songTitleSpan}
-						>
-							{map.name}</span
+						<ScrollText containerWidth={songTitleContainerWidth}
+							>{map.metadata.songName}</ScrollText
 						>
 					</h4>
+
+					<h5 class="mb-1 italic leading-4">
+						<ScrollText containerWidth={songTitleContainerWidth}
+							>{map.metadata.songSubName}</ScrollText
+						>
+					</h5>
 				</div>
-				<h5 class="mb-1 italic leading-4">
-					{map.metadata.songSubName}
-				</h5>
 			</div>
 
 			<MapDataTable {map} />
@@ -221,17 +216,5 @@
 	button:hover {
 		border: none;
 		transform: scaleY(120%);
-	}
-
-	.scrollText {
-		border-radius: 8px;
-		padding-left: 2px;
-		padding-right: 2px;
-	}
-	.scrollText:hover {
-		transform: translateX(
-			calc((var(--containerWidth) - var(--headingWidth)) - 10px)
-		);
-		background: #444444;
 	}
 </style>

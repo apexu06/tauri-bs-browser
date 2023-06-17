@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import Hamburger from './components/Hamburger.svelte';
+	import Hamburger from './components/common/Hamburger.svelte';
 	import MapTable from './components/map-table/MapTable.svelte';
-	import type { Map } from './types/Map';
+	import type { MapDetail } from './types/MapDetail';
 	import { invoke } from '@tauri-apps/api/tauri';
 	import FilterBar from './components/filter-bar/FilterBar.svelte';
 
 	let query = '';
-	let maps: Map[] = [];
+	let maps: MapDetail[] = [];
 	let error = '';
 
 	onMount(() => {
@@ -43,7 +43,7 @@
 			filters: filters,
 		})
 			.then((res) => {
-				maps = res as Map[];
+				maps = res as MapDetail[];
 			})
 			.catch((err) => {
 				error = 'Something went wrong: ' + err;

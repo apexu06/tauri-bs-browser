@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import customSelect from 'custom-select';
-	import ToggleSwitch from './ToggleSwitch.svelte';
+	import ToggleSwitch from '../common/ToggleSwitch.svelte';
 
 	export let searchType = 'Latest';
 	export let onlyRanked = false;

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '../styles.css';
 	export let transformed = false;
 
 	let l1 = 'default',

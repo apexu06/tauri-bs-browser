@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { MapDetail } from 'src/types/MapDetail';
+	import ScrollText from 'src/components/common/ScrollText.svelte';
 	export let map: MapDetail;
 
 	let mapperDisplay: HTMLDivElement;
@@ -8,20 +9,28 @@
 	let mapperLabelWidth: number;
 	let mapperSpan: HTMLSpanElement;
 	let mapperSpanWidth: number;
+	let songAuthorContainer: HTMLDivElement;
+	let songAuthorContainerWidth: number;
 
 	window.addEventListener('resize', () => {
 		mapperDisplayWidth = mapperDisplay?.clientWidth;
 		mapperLabelWidth = mapperLabel?.clientWidth;
 		mapperSpanWidth = mapperSpan?.clientWidth;
+		songAuthorContainerWidth = songAuthorContainer?.clientWidth;
 	});
 
 	$: mapperDisplayWidth = mapperDisplay?.clientWidth;
 	$: mapperLabelWidth = mapperLabel?.clientWidth;
 	$: mapperSpanWidth = mapperSpan?.clientWidth;
+	$: songAuthorContainerWidth = songAuthorContainer?.clientWidth;
 </script>
 
 <div class="flex flex-col">
-	<span class="text-xl">{map.metadata.songAuthorName}</span>
+	<div class="overflow-hidden" bind:this={songAuthorContainer}>
+		<ScrollText containerWidth={songAuthorContainerWidth} style="text-xl"
+			>{map.metadata.songAuthorName}</ScrollText
+		>
+	</div>
 	<div class="mb-1 h-px w-full bg-gray-50" />
 
 	<div
