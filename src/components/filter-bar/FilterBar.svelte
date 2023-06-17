@@ -22,10 +22,10 @@
 	$: console.log(bpmValues);
 </script>
 
-<div class="my-6 flex w-5/6 items-center rounded-lg bg-neutral-900 p-2">
-	<div
-		class="mr-4 flex items-center border-r border-r-white pl-2 pr-4 text-center"
-	>
+<div
+	class="my-6 flex w-5/6 flex-col items-center rounded-lg bg-neutral-900 p-2 lg:flex-row"
+>
+	<div class="mb-2 mr-4 flex items-center pl-2 pr-4 text-center lg:mb-0">
 		<select
 			name="sortSelect"
 			id="sortSelect"
@@ -39,41 +39,53 @@
 		</select>
 	</div>
 
-	<div class="mr-4 flex items-center border-r border-r-white pr-4">
+	<div class="mr-4 flex w-full items-center pl-2 lg:pl-0">
 		<span class="text-xl font-bold">Filters</span>
 
 		<div
-			class="ml-2 flex w-full items-center rounded-lg bg-neutral-800 px-2 py-1"
+			class="ml-2 flex h-fit w-full items-center rounded-lg bg-neutral-800 px-2 py-1"
 		>
-			<div class="mr-2 border-r border-r-neutral-600 pr-2">
-				<span class="mr-2">Ranked: </span>
-				<ToggleSwitch bind:checked={onlyRanked} color="var(--ranked)" />
-			</div>
-			<div class="mr-2 border-r border-r-neutral-600 pr-2">
-				<span class="mr-2">Verified: </span>
-				<ToggleSwitch
-					bind:checked={onlyVerified}
-					color="var(--verified)"
-				/>
-			</div>
-			<div class="mr-2 border-r border-r-white pr-2">
-				<span class="mr-2">Curated: </span>
-				<ToggleSwitch
-					bind:checked={onlyCurated}
-					color="var(--curated)"
-				/>
-			</div>
+			<div class="0 flex w-full flex-col items-center lg:flex-row">
+				<div class="flex">
+					<div class="mr-2 flex border-r border-r-neutral-600 pr-2">
+						<span class="mr-2">Ranked: </span>
+						<ToggleSwitch
+							bind:checked={onlyRanked}
+							color="var(--ranked)"
+						/>
+					</div>
+					<div class="mr-2 flex border-r border-r-neutral-600 pr-2">
+						<span class="mr-2">Verified: </span>
+						<ToggleSwitch
+							bind:checked={onlyVerified}
+							color="var(--verified)"
+						/>
+					</div>
+					<div
+						class="mr-2 flex border-r border-r-transparent pr-2 lg:border-r-white"
+					>
+						<span class="mr-2">Curated: </span>
+						<ToggleSwitch
+							bind:checked={onlyCurated}
+							color="var(--curated)"
+						/>
+					</div>
+				</div>
 
-			<span>BPM</span>
-
-			<div class="w-48">
-				<RangeSlider
-					bind:values={bpmValues}
-					max={500}
-					float
-					range
-					pushy
-				/>
+				<div
+					class="lg-border-r flex w-1/2 items-center justify-center lg:justify-normal"
+				>
+					<span>BPM</span>
+					<div class="w-1/2 lg:border-r lg:border-r-white">
+						<RangeSlider
+							bind:values={bpmValues}
+							max={500}
+							float
+							range
+							pushy
+						/>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

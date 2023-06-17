@@ -1,4 +1,4 @@
-use std::{error::Error, fmt::format, iter::Map};
+use std::error::Error;
 
 use serde::{Deserialize, Serialize};
 use ts_rs::TS;
