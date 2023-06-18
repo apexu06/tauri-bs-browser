@@ -34,7 +34,7 @@
 		<span class="hidden text-xl font-bold lg:flex">Filters</span>
 
 		<div
-			class="ml-2 flex h-fit w-full items-center rounded-lg bg-neutral-800 px-2 py-1 text-lg"
+			class="ml-2 flex h-fit w-full items-center rounded-lg bg-neutral-800 px-2 py-1 text-xl"
 		>
 			<div class=" flex w-full flex-col items-center lg:flex-row">
 				<div class="flex">

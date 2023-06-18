@@ -25,7 +25,7 @@
 	$: songAuthorContainerWidth = songAuthorContainer?.clientWidth;
 </script>
 
-<div class="flex flex-col">
+<div class="z-10 flex flex-col">
 	<div class="overflow-hidden" bind:this={songAuthorContainer}>
 		<ScrollText containerWidth={songAuthorContainerWidth} style="text-xl"
 			>{map.metadata.songAuthorName}</ScrollText

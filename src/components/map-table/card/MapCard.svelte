@@ -78,9 +78,7 @@
 	style="--image: url({map.versions[0]
 		.coverURL}); --color1: {color1}; --color2: {color2}"
 >
-	<div
-		class="flex h-full w-full items-center justify-center rounded-xl backdrop-blur-[3px]"
-	>
+	<div class="parent h-full w-full items-center justify-center">
 		<div class="content-container grid h-full w-full grid-cols-2 p-4">
 			<div class="col-span-2 flex flex-col">
 				<div
@@ -125,13 +123,11 @@
 				</div>
 
 				<div
-					class="mt-2 flex h-6 w-4/5 overflow-hidden rounded-lg bg-transparent text-center font-bold backdrop-blur-xl"
+					class=" mt-2 flex h-6 w-4/5 overflow-hidden rounded-lg bg-transparent text-center font-bold backdrop-blur-md"
 					bind:this={ratingBar}
 				>
 					{#if likes == 0 && dislikes == 0}
-						<div
-							class="w-full rounded-lg bg-transparent backdrop-blur-xl"
-						>
+						<div class="w-full rounded-lg bg-transparent">
 							No Rating yet
 						</div>
 					{:else}
@@ -152,13 +148,17 @@
 					{/if}
 				</div>
 				<button
-					class="mt-4 flex h-12 w-4/5 items-center justify-center rounded-xl bg-transparent hover:bg-transparent"
-					><img
-						src={playButton}
-						width="30"
-						height="30"
-						alt="Play"
-					/></button
+					class="test mt-4 flex h-12 w-4/5 items-center justify-center rounded-xl transition"
+					><div
+						class="flex h-full w-full items-center justify-center bg-transparent backdrop-blur-xl transition"
+					>
+						<img
+							src={playButton}
+							width="30"
+							height="30"
+							alt="Play"
+						/>
+					</div></button
 				>
 			</div>
 		</div>
@@ -206,11 +206,27 @@
 	}
 
 	button {
-		backdrop-filter: blur(15px);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: sepia(80%);
 	}
 
 	button:hover {
 		border: none;
-		transform: scaleY(120%);
+		transform: scale(120%);
+	}
+
+	.test {
+		background: rgba(0, 0, 0, 0.01);
+	}
+
+	.parent::before {
+		backdrop-filter: blur(2px);
+		content: '';
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		position: absolute;
+		z-index: 0;
 	}
 </style>
