@@ -5,6 +5,10 @@
 	import type { MapDetail } from './types/MapDetail';
 	import { invoke } from '@tauri-apps/api/tauri';
 	import FilterBar from './components/filter-bar/FilterBar.svelte';
+	import './styles.css';
+
+	let searchButton: HTMLButtonElement;
+	let searchButtonWidth: number = searchButton?.clientWidth;
 
 	let query = '';
 	let maps: MapDetail[] = [];
@@ -12,6 +16,9 @@
 
 	onMount(() => {
 		searchMaps();
+		searchButton.addEventListener('mouseenter', () => {
+			searchButtonWidth = searchButton?.clientWidth;
+		});
 	});
 
 	let sortOrder = 'Latest';
@@ -21,7 +28,6 @@
 	let bpmValues: [number, number];
 
 	function searchMaps() {
-		maps = [];
 		let filters = [
 			{
 				name: 'ranked',
@@ -64,7 +70,7 @@
 		<h3 class="mb-4">Search Maps</h3>
 	</div>
 
-	<div class="flex h-12 w-2/5 shadow shadow-black">
+	<div class="flex h-12 w-2/5">
 		<input
 			bind:value={query}
 			type="text"
@@ -73,6 +79,8 @@
 		/>
 		<button
 			class="rounded-r-xl hover:rounded-xl"
+			bind:this={searchButton}
+			style="--buttonWidth: {searchButtonWidth}px"
 			on:click={() => searchMaps()}>Search</button
 		>
 	</div>
@@ -91,3 +99,20 @@
 		>
 	</div>
 </main>
+
+<style>
+	button {
+		height: 100%;
+		background: linear-gradient(45deg, var(--primary), var(--secondary));
+		padding: 4px;
+		font-weight: bold;
+		font-size: 120%;
+		width: 30%;
+		transition: 400ms;
+	}
+
+	button:hover {
+		transition: 400ms;
+		background-position: var(--buttonWidth);
+	}
+</style>

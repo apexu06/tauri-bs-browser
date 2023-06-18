@@ -11,13 +11,16 @@
 
 :root {
 	--bgColor: #232528;
-	--primary: #ffa400;
-	--secondary: #009ffd;
-	--tertiary: #2a2a72;
-	--text: #eaf6ff;
+	--darkBg: #171717;
+	--primary: #5c56c9;
+	--secondary: #ef476f;
+	--tertiary: #009ffd;
+	--text: #fff;
 	--ranked: #16f768;
 	--verified: #ab04f2;
 	--curated: #f49004;
+	--range-slider: var(--secondary);
+	--range-handle-inactive: var(--darkBg);
 }
 
 body {
@@ -25,13 +28,12 @@ body {
 }
 
 h1 {
-	color: transparent;
-	background: linear-gradient(90deg, var(--primary), var(--secodary));
-	background-clip: text;
-	-webkit-background-clip: text;
-	display: inline-block;
 	font-size: 400%;
 	font-weight: 600;
+	background-image: radial-gradient(var(--secondary), var(--primary));
+	color: transparent;
+	background-clip: text;
+	-webkit-background-clip: text;
 }
 
 h2 {
@@ -57,82 +59,19 @@ h5 {
 
 input {
 	height: 100%;
-	color: var(--tertiary);
+	color: white;
 	padding: 2px;
 	padding-left: 8px;
 	width: 100%;
 	font-size: 120%;
+	background: var(--darkBg);
 }
 
 input:focus {
 	outline: none;
 }
 
-button {
-	height: 100%;
-	background: var(--primary);
-	padding: 4px;
-	font-weight: bold;
-	font-size: 120%;
-	width: 30%;
-	transition: 200ms;
-}
-
 button:hover {
 	transform: scale(1.2);
 	transition: 200ms;
-	background-color: var(--tertiary);
-}
-
-.custom-select-container {
-	position: relative;
-	box-sizing: border-box;
-}
-.custom-select-container * {
-	box-sizing: border-box;
-}
-
-.custom-select-opener {
-	background-color: var(--primary);
-	display: block;
-	cursor: pointer;
-	border-radius: 8px;
-	padding: 4px;
-	text-align: center;
-
-	font-weight: bold;
-	min-width: 100%;
-	width: 10em;
-}
-
-.custom-select-container select {
-	visibility: hidden;
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-.custom-select-panel {
-	max-height: 0;
-	transition: max-height 0.2s ease-out, overflow-y 0.1s 0.2s;
-	overflow: hidden;
-	background-color: var(--bgColor);
-	position: absolute;
-	top: 100%;
-	z-index: 100;
-	width: 100%;
-	border-radius: 4px;
-	margin-top: 4px;
-}
-.custom-select-container.is-open .custom-select-panel {
-	max-height: 10em;
-}
-.custom-select-option {
-	width: 100%;
-	text-align: center;
-	cursor: pointer;
-	font-weight: bold;
-	border-top: 1px solid #333;
-}
-.custom-select-option.has-focus {
-	background-color: var(--secondary);
 }
