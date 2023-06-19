@@ -242,7 +242,7 @@
 	}
 
 	.chrome::before {
-		backdrop-filter: blur(2px) saturate(100%);
+		backdrop-filter: blur(2px);
 		content: '';
 		width: 100%;
 		height: 100%;

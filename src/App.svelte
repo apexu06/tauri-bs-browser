@@ -6,6 +6,7 @@
 	import { invoke } from '@tauri-apps/api/tauri';
 	import FilterBar from './components/filter-bar/FilterBar.svelte';
 	import './styles.css';
+	import { fetchMaps } from './functions/request';
 
 	let searchButton: HTMLButtonElement;
 	let searchButtonWidth: number = searchButton?.clientWidth;
@@ -13,14 +14,38 @@
 	let query = '';
 	let maps: MapDetail[] = [];
 	let error = '';
+	let sortOrder = 'Latest';
+	let onlyRanked = false;
+	let onlyVerified = false;
+	let onlyCurated = false;
+	let bpmValues: [number, number];
 
 	onMount(() => {
-		searchMaps();
-		//getMock();
+		getMaps();
 		searchButton.addEventListener('mouseenter', () => {
 			searchButtonWidth = searchButton?.clientWidth;
 		});
 	});
+
+	async function getMaps() {
+		maps = [];
+		const response = await fetchMaps(
+			query,
+			0,
+			sortOrder,
+			onlyRanked,
+			onlyVerified,
+			onlyCurated,
+			bpmValues,
+			maps
+		);
+
+		try {
+			maps = response;
+		} catch (e) {
+			error = e;
+		}
+	}
 
 	function getMock() {
 		maps[0] = {
@@ -68,45 +93,6 @@
 			},
 		};
 	}
-
-	let sortOrder = 'Latest';
-	let onlyRanked = false;
-	let onlyVerified = false;
-	let onlyCurated = false;
-	let bpmValues: [number, number];
-
-	function searchMaps() {
-		maps = [];
-		let filters = [
-			{
-				name: 'ranked',
-				active: onlyRanked,
-			},
-			{
-				name: 'verified',
-				active: onlyVerified,
-			},
-			{
-				name: 'curated',
-				active: onlyCurated,
-			},
-		];
-		invoke('get_maps', {
-			query: query,
-			page: 0,
-			sortMode: sortOrder,
-			filters: filters,
-			minBpm: bpmValues[0],
-			maxBpm: bpmValues[1],
-			currentMaps: maps,
-		})
-			.then((res) => {
-				maps = res as MapDetail[];
-			})
-			.catch((err) => {
-				error = 'Something went wrong: ' + err;
-			});
-	}
 </script>
 
 <main class="flex h-full w-full flex-col items-center justify-center">
@@ -130,7 +116,7 @@
 			class="rounded-r-xl hover:rounded-xl"
 			bind:this={searchButton}
 			style="--buttonWidth: {searchButtonWidth}px"
-			on:click={() => searchMaps()}>Search</button
+			on:click={() => getMaps()}>Search</button
 		>
 	</div>
 
