@@ -69,6 +69,18 @@
 		color2.replace(/(['"])/g, '');
 	}
 
+	function detectBrowser() {
+		if (navigator.userAgent.includes('Chrome')) {
+			return 'chrome';
+		}
+		if (navigator.userAgent.includes('Firefox')) {
+			return 'firefox';
+		}
+		if (navigator.userAgent.includes('Safari')) {
+			return 'safari';
+		}
+	}
+
 	$: ratingBarWidth = ratingBar?.clientWidth;
 	$: songTitleContainerWidth = songTitleContainer?.clientWidth;
 </script>
@@ -78,7 +90,9 @@
 	style="--image: url({map.versions[0]
 		.coverURL}); --color1: {color1}; --color2: {color2}"
 >
-	<div class="parent h-full w-full items-center justify-center">
+	<div
+		class="{detectBrowser()} h-full w-full items-center justify-center rounded-xl"
+	>
 		<div class="content-container grid h-full w-full grid-cols-2 p-4">
 			<div class="col-span-2 flex flex-col">
 				<div
@@ -148,9 +162,9 @@
 					{/if}
 				</div>
 				<button
-					class="test mt-4 flex h-12 w-4/5 items-center justify-center rounded-xl transition"
+					class="mt-4 flex h-12 w-4/5 items-center justify-center rounded-xl transition"
 					><div
-						class="flex h-full w-full items-center justify-center bg-transparent backdrop-blur-xl transition"
+						class="flex h-full w-full items-center justify-center rounded-xl bg-transparent backdrop-blur-lg transition"
 					>
 						<img
 							src={playButton}
@@ -167,7 +181,7 @@
 
 <style>
 	.image-container {
-		background: rgba(0, 0, 0, 0.5) var(--image);
+		background: rgba(0, 0, 0, 0.3) var(--image);
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position-y: 50%;
@@ -178,7 +192,7 @@
 	}
 
 	.image-container:hover {
-		background: rgba(0, 0, 0, 0.7) var(--image);
+		background: rgba(0, 0, 0, 0.6) var(--image);
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position-y: 30%;
@@ -215,12 +229,20 @@
 		transform: scale(120%);
 	}
 
-	.test {
-		background: rgba(0, 0, 0, 0.01);
+	.safari,
+	.firefox {
+		backdrop-filter: blur(2px);
+		content: '';
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		position: absolute;
+		z-index: 0;
 	}
 
-	.parent::before {
-		backdrop-filter: blur(2px);
+	.chrome::before {
+		backdrop-filter: blur(2px) saturate(100%);
 		content: '';
 		width: 100%;
 		height: 100%;

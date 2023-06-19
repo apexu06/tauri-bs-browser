@@ -16,10 +16,58 @@
 
 	onMount(() => {
 		searchMaps();
+		//getMock();
 		searchButton.addEventListener('mouseenter', () => {
 			searchButtonWidth = searchButton?.clientWidth;
 		});
 	});
+
+	function getMock() {
+		maps[0] = {
+			id: 'abc123',
+			name: 'Map Name',
+			lastPublishedAt: '2023-06-19T12:34:56Z',
+			curatedAt: null,
+			metadata: {
+				songName: 'Song Name',
+				songSubName: 'Sub Name',
+				songAuthorName: 'Author Name',
+				levelAuthorName: 'Level Author',
+				bpm: 120.5,
+				duration: 180,
+			},
+			stats: {
+				downvotes: 10,
+				upvotes: 100,
+			},
+			description: 'Map Description',
+			ranked: true,
+			qualified: false,
+			versions: [
+				{
+					downloadURL: 'https://example.com/map/download',
+					previewURL: 'https://example.com/map/preview',
+					coverURL:
+						'https://eu.cdn.beatsaver.com/25b1354d0eef8b1d0fb0d82e73302a0c81845351.jpg',
+					diffs: [
+						{
+							notes: 100,
+							bombs: 5,
+							characteristic: 'Standard',
+							difficulty: 'Expert',
+							njs: 12.0,
+							nps: 6.0,
+						},
+					],
+					hash: 'abcdef123456',
+				},
+			],
+			automapper: false,
+			uploader: {
+				verifiedMapper: true,
+			},
+		};
+	}
 
 	let sortOrder = 'Latest';
 	let onlyRanked = false;
@@ -28,6 +76,7 @@
 	let bpmValues: [number, number];
 
 	function searchMaps() {
+		maps = [];
 		let filters = [
 			{
 				name: 'ranked',
