@@ -3,7 +3,6 @@
 	import Hamburger from './components/common/Hamburger.svelte';
 	import MapTable from './components/map-table/MapTable.svelte';
 	import type { MapDetail } from './types/MapDetail';
-	import { invoke } from '@tauri-apps/api/tauri';
 	import FilterBar from './components/filter-bar/FilterBar.svelte';
 	import './styles.css';
 	import { fetchMaps } from './functions/request';
@@ -32,15 +31,29 @@
 	async function getMaps() {
 		maps = [];
 		const response = await fetchMaps(
-			query,
-			0,
-			sortOrder,
-			onlyRanked,
-			onlyVerified,
-			onlyCurated,
-			bpmValues,
-			startDate,
-			endDate,
+			{
+				query,
+				page: 0,
+				sortOrder,
+				filters: [
+					{
+						name: 'ranked',
+						active: onlyRanked,
+					},
+					{
+						name: 'verified',
+						active: onlyVerified,
+					},
+					{
+						name: 'curated',
+						active: onlyCurated,
+					},
+				],
+				minBpm: bpmValues[0],
+				maxBpm: bpmValues[1],
+				startDate,
+				endDate,
+			},
 			maps
 		);
 

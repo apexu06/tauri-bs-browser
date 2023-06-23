@@ -81,19 +81,16 @@
 					</div>
 				</div>
 				<div
-					class="flex h-8 w-4/5 items-center lg:border-l lg:border-l-neutral-600"
+					class="mb-2 flex h-8 w-4/5 items-center lg:mb-0 lg:border-l lg:border-l-neutral-600"
 				>
-					<span class="mx-2">Date</span>
 					<div class="flex w-full items-center justify-between">
-						<div class="rounded-xl">
-							<DateInput
-								format={'dd-MM-yyyy'}
-								placeholder={'start-date'}
-								bind:value={startDate}
-								min={new Date('2018-01-01')}
-								max={endDate}
-							/>
-						</div>
+						<DateInput
+							format={'dd-MM-yyyy'}
+							placeholder={'start-date'}
+							bind:value={startDate}
+							min={new Date('2018-01-01')}
+							max={endDate}
+						/>
 						-
 						<DateInput
 							format={'dd-MM-yyyy'}

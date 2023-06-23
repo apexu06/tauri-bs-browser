@@ -3,7 +3,10 @@ use std::error::Error;
 use serde::{Deserialize, Serialize};
 use ts_rs::TS;
 
-use crate::types::bs_map::{MapDetail, Maps};
+use crate::{
+    types::bs_map::{MapDetail, Maps},
+    QueryParams,
+};
 
 #[derive(TS)]
 #[ts(export)]
@@ -13,23 +16,14 @@ pub struct Filter {
     pub active: bool,
 }
 
-pub async fn fetch_maps(
-    query: &str,
-    page_index: u32,
-    sort_order: &str,
-    min_bpm: u32,
-    max_bpm: u32,
-    filters: Vec<Filter>,
-    start_date: &str,
-    end_date: &str,
-) -> Result<Vec<MapDetail>, Box<dyn Error>> {
+pub async fn fetch_maps(params: QueryParams) -> Result<Vec<MapDetail>, Box<dyn Error>> {
     let mut query_string = format!(
         "https://api.beatsaver.com/search/text/{}?q={}&sortOrder={}&minBpm={}&maxBpm={}&from={}&to={}",
-        page_index, query, sort_order, min_bpm, max_bpm, start_date, end_date
+        params.page, params.query, params.sort_order, params.min_bpm, params.max_bpm, params.start_date, params.end_date
     )
     .to_string();
 
-    for filter in filters.iter() {
+    for filter in params.filters.iter() {
         match filter.active {
             true => {
                 query_string =

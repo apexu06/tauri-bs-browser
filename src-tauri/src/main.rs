@@ -1,28 +1,31 @@
-// Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use api::beatsaver::{fetch_maps, Filter};
+use ts_rs::TS;
 use types::bs_map::MapDetail;
 
 mod api;
 mod types;
 
-#[tauri::command]
-async fn get_maps(
-    query: &str,
+#[derive(TS, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct QueryParams {
+    query: String,
     page: u32,
-    sort_mode: &str,
+    sort_order: String,
     filters: Vec<Filter>,
     min_bpm: u32,
     max_bpm: u32,
-    start_date: &str,
-    end_date: &str,
+    start_date: String,
+    end_date: String,
+}
+
+#[tauri::command]
+async fn get_maps(
+    params: QueryParams,
     mut current_maps: Vec<MapDetail>,
 ) -> Result<Vec<MapDetail>, String> {
-    let new_maps = fetch_maps(
-        query, page, sort_mode, min_bpm, max_bpm, filters, start_date, end_date,
-    )
-    .await;
+    let new_maps = fetch_maps(params).await;
 
     match new_maps {
         Ok(mut maps) => {
