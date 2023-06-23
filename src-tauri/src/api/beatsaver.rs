@@ -20,10 +20,12 @@ pub async fn fetch_maps(
     min_bpm: u32,
     max_bpm: u32,
     filters: Vec<Filter>,
+    start_date: &str,
+    end_date: &str,
 ) -> Result<Vec<MapDetail>, Box<dyn Error>> {
     let mut query_string = format!(
-        "https://api.beatsaver.com/search/text/{}?q={}&sortOrder={}&minBpm={}&maxBpm={}",
-        page_index, query, sort_order, min_bpm, max_bpm
+        "https://api.beatsaver.com/search/text/{}?q={}&sortOrder={}&minBpm={}&maxBpm={}&from={}&to={}",
+        page_index, query, sort_order, min_bpm, max_bpm, start_date, end_date
     )
     .to_string();
 

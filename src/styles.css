@@ -21,6 +21,9 @@
 	--curated: #f49004;
 	--range-slider: var(--secondary);
 	--range-handle-inactive: var(--darkBg);
+
+	--date-picker-background: var(--darkBg);
+	--date-picker-foreground: #f7f7f7;
 }
 
 body {

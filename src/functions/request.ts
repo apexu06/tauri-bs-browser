@@ -9,6 +9,8 @@ export const fetchMaps = (
 	onlyVerified: boolean,
 	onlyCurated: boolean,
 	bpmValues: number[],
+	startDate: Date,
+	endDate: Date,
 	maps: MapDetail[]
 ): Promise<MapDetail[]> => {
 	let filters = [
@@ -25,6 +27,7 @@ export const fetchMaps = (
 			active: onlyCurated,
 		},
 	];
+	console.log(startDate);
 	const response = invoke('get_maps', {
 		query: query,
 		page: page,
@@ -32,6 +35,8 @@ export const fetchMaps = (
 		filters: filters,
 		minBpm: bpmValues[0],
 		maxBpm: bpmValues[1],
+		startDate: startDate,
+		endDate: endDate,
 		currentMaps: maps,
 	})
 		.then((res) => {

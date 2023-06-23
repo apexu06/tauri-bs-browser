@@ -19,6 +19,8 @@
 	let onlyVerified = false;
 	let onlyCurated = false;
 	let bpmValues: [number, number];
+	let startDate: Date;
+	let endDate: Date;
 
 	onMount(() => {
 		getMaps();
@@ -37,6 +39,8 @@
 			onlyVerified,
 			onlyCurated,
 			bpmValues,
+			startDate,
+			endDate,
 			maps
 		);
 
@@ -127,6 +131,8 @@
 			bind:onlyCurated
 			bind:onlyVerified
 			bind:bpmValues
+			bind:startDate
+			bind:endDate
 		/>
 		<MapTable {maps} />
 		<span class="text-center text-2xl font-extrabold text-red-700"

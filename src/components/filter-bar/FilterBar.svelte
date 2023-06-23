@@ -2,13 +2,15 @@
 	import ToggleSwitch from '../common/ToggleSwitch.svelte';
 	import RangeSlider from 'svelte-range-slider-pips';
 	import Select from 'svelte-select';
+	import { DateInput } from 'date-picker-svelte';
 
 	export let searchType = 'Latest';
 	export let onlyRanked = false;
 	export let onlyVerified = false;
 	export let onlyCurated = false;
-
 	export let bpmValues = [0, 500];
+	export let startDate = new Date('2018-01-01');
+	export let endDate = new Date();
 
 	let selectItems = ['Latest', 'Relevance', 'Rating', 'Curated'];
 </script>
@@ -53,7 +55,7 @@
 						/>
 					</div>
 					<div
-						class="mr-2 flex border-r border-r-transparent pr-2 lg:border-r-white"
+						class="mr-2 flex border-r border-r-transparent pr-2 lg:border-r-neutral-600"
 					>
 						<span class="mr-2">Curated: </span>
 						<ToggleSwitch
@@ -67,7 +69,7 @@
 					class="lg-border-r flex w-full items-center justify-center lg:justify-normal"
 				>
 					<span>BPM</span>
-					<div class="w-full lg:w-1/2 lg:border-r lg:border-r-white">
+					<div class="mr-2 w-full">
 						<RangeSlider
 							id="slider"
 							bind:values={bpmValues}
@@ -77,8 +79,30 @@
 							pushy
 						/>
 					</div>
-
-					<span>Date</span>
+				</div>
+				<div
+					class="flex h-8 w-4/5 items-center lg:border-l lg:border-l-neutral-600"
+				>
+					<span class="mx-2">Date</span>
+					<div class="flex w-full items-center justify-between">
+						<div class="rounded-xl">
+							<DateInput
+								format={'dd-MM-yyyy'}
+								placeholder={'start-date'}
+								bind:value={startDate}
+								min={new Date('2018-01-01')}
+								max={endDate}
+							/>
+						</div>
+						-
+						<DateInput
+							format={'dd-MM-yyyy'}
+							placeholder={'end-date'}
+							bind:value={endDate}
+							min={startDate}
+							max={new Date()}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
