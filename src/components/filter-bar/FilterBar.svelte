@@ -69,7 +69,7 @@
 					class="lg-border-r flex w-full items-center justify-center lg:justify-normal"
 				>
 					<span>BPM</span>
-					<div class="mr-2 w-full">
+					<div class="w-full">
 						<RangeSlider
 							id="slider"
 							bind:values={bpmValues}
@@ -81,9 +81,10 @@
 					</div>
 				</div>
 				<div
-					class="mb-2 flex h-8 w-4/5 items-center lg:mb-0 lg:border-l lg:border-l-neutral-600"
+					class="mb-2 flex h-8 w-4/5 items-center pl-2 text-lg lg:mb-0 lg:border-l lg:border-l-neutral-600"
 				>
-					<div class="flex w-full items-center justify-between">
+					<span class="mr-2 font-bold">Date</span>
+					<div class="flex h-2 w-full items-center justify-between">
 						<DateInput
 							format={'dd-MM-yyyy'}
 							placeholder={'start-date'}

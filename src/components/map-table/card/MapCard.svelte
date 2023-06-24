@@ -94,23 +94,23 @@
 		class="{detectBrowser()} h-full w-full items-center justify-center rounded-xl"
 	>
 		<div class="content-container grid h-full w-full grid-cols-2 p-4">
-			<div class="col-span-2 flex flex-col">
-				<div
-					class="relative w-full overflow-hidden"
-					bind:this={songTitleContainer}
-				>
-					<h4 class="col-span-2 font-bold leading-7">
-						<ScrollText containerWidth={songTitleContainerWidth}
-							>{map.metadata.songName}</ScrollText
-						>
-					</h4>
+			<div
+				class="col-span-2 mb-1 flex w-full flex-col justify-center overflow-hidden"
+				bind:this={songTitleContainer}
+			>
+				<h4 class="font-bold leading-7">
+					<ScrollText containerWidth={songTitleContainerWidth}
+						><h3>{map.metadata.songName}</h3></ScrollText
+					>
+				</h4>
 
-					<h5 class="mb-1 italic leading-4">
+				{#if map.metadata.songSubName}
+					<h5 class="italic leading-4">
 						<ScrollText containerWidth={songTitleContainerWidth}
-							>{map.metadata.songSubName}</ScrollText
+							><h4>{map.metadata.songSubName}</h4></ScrollText
 						>
 					</h5>
-				</div>
+				{/if}
 			</div>
 
 			<MapDataTable {map} />
