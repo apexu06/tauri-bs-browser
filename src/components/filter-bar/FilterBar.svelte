@@ -16,10 +16,10 @@
 </script>
 
 <div
-	class="my-6 flex w-5/6 flex-col items-center rounded-lg bg-neutral-900 p-2 lg:flex-row"
+	class="my-6 flex w-5/6 select-none flex-col items-center rounded-2xl bg-neutral-900 p-2 2xl:flex-row"
 >
 	<div
-		class="mb-2 mr-4 flex w-1/2 items-center pl-2 pr-4 text-center font-bold lg:mb-0 lg:w-1/6 lg:border-r lg:border-r-white"
+		class=" mr-4 flex w-1/2 items-center pr-4 text-center font-bold 2xl:mb-0 2xl:w-1/6 2xl:border-r 2xl:border-r-white"
 	>
 		<Select
 			items={selectItems}
@@ -32,13 +32,15 @@
 		/>
 	</div>
 
-	<div class="mr-4 flex w-full items-center pl-2 lg:pl-0">
-		<span class="hidden text-xl font-bold lg:flex">Filters</span>
+	<div class="flex w-full items-center 2xl:pl-0">
+		<span class="hidden text-2xl font-bold 2xl:flex">Filters</span>
 
 		<div
-			class="ml-2 flex h-fit w-full items-center rounded-lg bg-neutral-800 px-2 py-1 text-xl"
+			class="ml-0 mt-2 flex h-fit w-full items-center rounded-2xl bg-neutral-800 px-0 pl-2 text-xl 2xl:ml-2 2xl:mt-0 2xl:px-2"
 		>
-			<div class=" flex w-full flex-col items-center lg:flex-row">
+			<div
+				class="mt-1 flex w-full flex-col items-center 2xl:mt-0 2xl:flex-row"
+			>
 				<div class="flex">
 					<div class="mr-2 flex border-r border-r-neutral-600 pr-2">
 						<span class="mr-2">Ranked: </span>
@@ -55,7 +57,7 @@
 						/>
 					</div>
 					<div
-						class="mr-2 flex border-r border-r-transparent pr-2 lg:border-r-neutral-600"
+						class="mr-2 flex border-r border-r-transparent pr-2 2xl:border-r-neutral-600"
 					>
 						<span class="mr-2">Curated: </span>
 						<ToggleSwitch
@@ -66,7 +68,7 @@
 				</div>
 
 				<div
-					class="lg-border-r flex w-full items-center justify-center lg:justify-normal"
+					class="2xl-border-r flex w-full min-w-[200px] items-center justify-center 2xl:justify-normal"
 				>
 					<span>BPM</span>
 					<div class="w-full">
@@ -81,10 +83,10 @@
 					</div>
 				</div>
 				<div
-					class="mb-2 flex h-8 w-4/5 items-center pl-2 text-lg lg:mb-0 lg:border-l lg:border-l-neutral-600"
+					class="mb-2 flex h-8 w-4/5 items-center pl-0 text-xl 2xl:mb-0 2xl:border-l 2xl:border-l-neutral-600 2xl:pl-2"
 				>
-					<span class="mr-2 font-bold">Date</span>
-					<div class="flex h-2 w-full items-center justify-between">
+					<span class="mr-2 hidden 2xl:inline">Date</span>
+					<div class="flex h-2 w-full items-center justify-center">
 						<DateInput
 							format={'dd-MM-yyyy'}
 							placeholder={'start-date'}
@@ -119,8 +121,9 @@
 		--list-background: var(--bgColor);
 		--item-hover-bg: #555;
 		--input-color: white;
+		--border-radius: 8px;
 		--placeholder-color: white;
-		--value-container-padding: -10px;
+		--height: 48px;
 		--item-is-active-bg: var(--secondary);
 	}
 </style>

@@ -9,6 +9,7 @@
 * {
 	font-family: 'Quicksand', sans-serif;
 	color: var(--text);
+	user-select: none;
 }
 
 :root {
@@ -36,7 +37,7 @@ h1 {
 	font-size: 400%;
 	font-weight: 600;
 	font-family: 'Josefin Sans', sans-serif;
-	background-image: radial-gradient(var(--secondary), var(--primary));
+	background: linear-gradient(-90deg, var(--secondary), var(--primary));
 	color: transparent;
 	background-clip: text;
 	-webkit-background-clip: text;

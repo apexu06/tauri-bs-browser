@@ -64,10 +64,6 @@
 			colors.push(color3);
 		}
 
-		color1.replace(/(['"])/g, '');
-		color2.replace(/(['"])/g, '');
-		color3.replace(/(['"])/g, '');
-
 		switch (colors.length) {
 			case 1: {
 				color1 = colors[0];
@@ -101,7 +97,7 @@
 </script>
 
 <div
-	class="image-container {getMapColors()}  h-56 w-full flex-col rounded-xl bg-neutral-700 transition"
+	class="image-container {getMapColors()}  h-56 w-full select-none flex-col rounded-xl bg-neutral-700 transition"
 	style="--image: url({map.versions[0]
 		.coverURL}); --color1: {color1}; --color2: {color2}; --color3: {color3};"
 >
@@ -140,7 +136,7 @@
 						<div
 							class="{getDiffColor(
 								diff.difficulty
-							)} m-1 h-4 w-12 items-center justify-center rounded-xl text-center"
+							)} m-1 flex h-4 w-12 items-center justify-center rounded-xl text-center"
 						>
 							{#if diff.difficulty == 'ExpertPlus'}
 								<span>E+</span>
@@ -215,6 +211,10 @@
 		transition: 200ms;
 		border: 2px solid white;
 		cursor: pointer;
+	}
+
+	.image-container::hover > .safari {
+		backdrop-filter: blur(20px);
 	}
 
 	.one-color::before {

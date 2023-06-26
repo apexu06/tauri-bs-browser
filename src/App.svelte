@@ -22,18 +22,16 @@
 	let endDate: Date;
 
 	onMount(() => {
-		getMaps();
 		searchButton.addEventListener('mouseenter', () => {
 			searchButtonWidth = searchButton?.clientWidth;
 		});
 	});
 
-	async function getMaps() {
-		maps = [];
+	async function getMaps(current_maps: MapDetail[], page: number) {
 		const response = await fetchMaps(
 			{
 				query,
-				page: 0,
+				page,
 				sortOrder,
 				filters: [
 					{
@@ -54,7 +52,7 @@
 				startDate,
 				endDate,
 			},
-			maps
+			current_maps
 		);
 
 		try {
@@ -133,7 +131,10 @@
 			class="rounded-r-xl hover:rounded-xl"
 			bind:this={searchButton}
 			style="--buttonWidth: {searchButtonWidth}px"
-			on:click={() => getMaps()}>Search</button
+			on:click={() => {
+				maps = [];
+				getMaps(maps, 0);
+			}}>Search</button
 		>
 	</div>
 
@@ -147,7 +148,7 @@
 			bind:startDate
 			bind:endDate
 		/>
-		<MapTable {maps} />
+		<MapTable {maps} {getMaps} />
 		<span class="text-center text-2xl font-extrabold text-red-700"
 			>{error}</span
 		>
