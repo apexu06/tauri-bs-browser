@@ -17,10 +17,6 @@
 	let songTitleContainer: HTMLDivElement;
 	let songTitleContainerWidth: number;
 
-	onMount(() => {
-		getMapColors();
-	});
-
 	window.addEventListener('resize', () => {
 		ratingBarWidth = ratingBar?.clientWidth;
 		songTitleContainerWidth = songTitleContainer?.clientWidth;
@@ -45,28 +41,47 @@
 
 	let color1 = '';
 	let color2 = '';
+	let color3 = '';
 
 	function getMapColors() {
+		let colors = [] as string[];
+
 		if (map.ranked) {
 			color1 = 'var(--ranked)';
+			colors.push(color1);
 		}
-		color2 = color1;
 
 		if (map.curatedAt !== null) {
 			color2 = 'var(--curated)';
-		} else if (
+			colors.push(color2);
+		}
+
+		if (
 			map.uploader.verifiedMapper !== null &&
 			map.uploader.verifiedMapper
 		) {
-			color2 = 'var(--verified)';
-		}
-
-		if (color2 !== '' && color1 === '') {
-			color1 = color2;
+			color3 = 'var(--verified)';
+			colors.push(color3);
 		}
 
 		color1.replace(/(['"])/g, '');
 		color2.replace(/(['"])/g, '');
+		color3.replace(/(['"])/g, '');
+
+		switch (colors.length) {
+			case 1: {
+				color1 = colors[0];
+				return 'one-color';
+			}
+			case 2: {
+				color1 = colors[0];
+				color2 = colors[1];
+				return 'two-colors';
+			}
+			case 3: {
+				return 'three-colors';
+			}
+		}
 	}
 
 	function detectBrowser() {
@@ -86,9 +101,9 @@
 </script>
 
 <div
-	class="image-container flex h-56 w-full flex-col rounded-xl bg-neutral-700 transition"
+	class="image-container {getMapColors()}  h-56 w-full flex-col rounded-xl bg-neutral-700 transition"
 	style="--image: url({map.versions[0]
-		.coverURL}); --color1: {color1}; --color2: {color2}"
+		.coverURL}); --color1: {color1}; --color2: {color2}; --color3: {color3};"
 >
 	<div
 		class="{detectBrowser()} h-full w-full items-center justify-center rounded-xl"
@@ -202,16 +217,32 @@
 		cursor: pointer;
 	}
 
+	.one-color::before {
+		background: var(--color1);
+	}
+
+	.two-colors::before {
+		background: linear-gradient(
+			-90deg,
+			var(--color1) 0%,
+			var(--color2) 100%
+		);
+	}
+
+	.three-colors::before {
+		background: linear-gradient(
+			-90deg,
+			var(--color1) 0%,
+			var(--color2) 50%,
+			var(--color3) 100%
+		);
+	}
+
 	.image-container::before {
 		content: '';
 		position: absolute;
 		z-index: -1;
 		inset: -1px;
-		background: linear-gradient(
-			-90deg,
-			var(--color1) 0%,
-			var(--color2) 80%
-		);
 		transform: translate(7px, 7px);
 		filter: blur(5px);
 		opacity: 1;
